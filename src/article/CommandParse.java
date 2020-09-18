@@ -19,6 +19,7 @@ public class CommandParse {
         //System.out.println(countSameWord+"/"+countMinWord);
         double res=(countSameWord/countMinWord);
         System.out.println("查重率:"+output(args[2],res));
+        System.out.println("输出文件:"+args[2]);
     }
     public static String output(String outputPath,double res) {
         DecimalFormat format=new DecimalFormat("0.00");
@@ -29,6 +30,7 @@ public class CommandParse {
             char[] chars = data.toCharArray();
             output.write(chars);
         } catch (IOException e) {
+            ErrorMessages.writeFileError(outputPath);
             e.printStackTrace();
         }
         return data;
