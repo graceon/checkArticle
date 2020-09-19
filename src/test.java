@@ -52,12 +52,28 @@ public class test {
         };
         CommandParse.main(args);
     }
+    /**
+     * 测试命令行输入参数错误处理
+     */
     @Test
     public void testShortArgs(){
         String[] args={
                 "wrong_args_length",
         };
         CommandParse.main(args);
+    }
+
+    /**
+     * 仅当使用JProfiler时定义
+     * 防止JVM过早退出，导致无法查看信息
+     */
+    @Test
+    public void zwaitForJProfiler() {
+        try {
+            Thread.sleep(100 * 1000);
+        }catch (InterruptedException e){
+
+        }
     }
     /**
      * 获取目录下的所有文件名
@@ -78,4 +94,5 @@ public class test {
         }
         return res;
     }
+
 }

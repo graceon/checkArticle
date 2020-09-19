@@ -8,6 +8,16 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 
 public class Article{
+    public class ZeroFeature extends Exception{
+        private String pathname;
+        public ZeroFeature(String initPathname){
+            pathname=initPathname;
+        }
+        public void print(){
+            System.out.println("无法从文本中提取特征,文件路径："+pathname);
+        };
+    }
+
     /**
      *
      * @return 文章特征
@@ -36,20 +46,22 @@ public class Article{
      *
      * @param pathname 文章路径
      */
-    public Article(String pathname) throws IOException {
+    public Article(String pathname) throws IOException, ZeroFeature {
         BufferedReader reader = null;
         try {
             //读取文件并且使用BufferedReader逐行分析
             File file = new File(pathname);
             reader = new BufferedReader(new FileReader(file));
             String line;
+            //按顺序读取每一行
             while ((line = reader.readLine()) != null) {
-                //使用正则表达式分割这一行，将这一行断句
+                //使用正则表达式分割这一行，分割这一行的短句
                 String[] subSentence=line.split(splitSymbol);
+                //逐个短句分析
                 for(String word:subSentence){
-                    //读取2个汉字作为双字词，并计算这个子串的Hash，添加sortedHashFeature中
+                    //每2个汉字作为双字词
                     for (int i = 0; i < word.length()-1; i++) {
-                        //获取双字词的Hash值作为，添加到特征集合
+                        //获取双字词的Hash值作为，添加到特征集合sortedHashFeature中
                         int hash = word.substring(i, i + 2).hashCode();
                         sortedHashFeature.add(hash);
                     }
@@ -71,5 +83,9 @@ public class Article{
         }
         //文章中双字词的数量
         countTwoCharWord= sortedHashFeature.size();//双字词数
+        if(countTwoCharWord==0){
+            //没有检测到特征，抛出异常
+            throw new ZeroFeature(pathname);
+        }
     }
 }

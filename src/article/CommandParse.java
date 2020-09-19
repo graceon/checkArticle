@@ -21,9 +21,14 @@ public class CommandParse {
         Article origin;
         Article target;
         try {
+            //加载原始论文
             origin = new Article(args[0]);
+            //加载待检测论文
             target = new Article(args[1]);
         }catch (IOException e){
+            return;
+        }catch (Article.ZeroFeature e){
+            e.print();
             return;
         }
         //计算重复特征数
