@@ -1,0 +1,12 @@
+@startuml
+class Article{
+    - int countTwoCharWord//文章中双字词的数量
+    - final String splitSymbol//正则表达式：匹配标点符号
+    - SortedSet<Integer> sortedHashFeature//论文特征
+    + SortedSet<Integer> getFeature()//获取文章特征
+    + int getCountTwoCharWord()//获取文章中双字词个数
+}
+class ArticleCompare {
+    + static int compare(Article originArticle,Article targetArticle)//比较文章
+}
+@enduml
