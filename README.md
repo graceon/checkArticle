@@ -7,6 +7,7 @@
 # 运行
 
 ```bash
-# java -jar main.jar [原文文件] [抄袭版论文的文件] [答案文件]，如下：
+# java -jar main.jar [原文文件] [抄袭版论文的文件] [答案文件]
+# 如下：
 java -jar main.jar tests\orig.txt tests\orig_0.8_add.txt res.txt
 ```
