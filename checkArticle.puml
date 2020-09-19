@@ -9,4 +9,7 @@ class Article{
 class ArticleCompare {
     + static int compare(Article originArticle,Article targetArticle)//比较文章
 }
+class CommandParse {
+    + static void main(String[] args)//主程序入口
+}
 @enduml
