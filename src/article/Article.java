@@ -1,9 +1,6 @@
 package article;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
@@ -48,10 +45,14 @@ public class Article{
      */
     public Article(String pathname) throws IOException, ZeroFeature {
         BufferedReader reader = null;
+        InputStreamReader fileStream = null;
+        FileInputStream file=null;
         try {
             //读取文件并且使用BufferedReader逐行分析
-            File file = new File(pathname);
-            reader = new BufferedReader(new FileReader(file));
+            file = new FileInputStream(pathname);
+            fileStream = new InputStreamReader(file, "UTF-8");
+            reader = new BufferedReader(fileStream);
+
             String line;
             //按顺序读取每一行
             while ((line = reader.readLine()) != null) {
@@ -68,6 +69,8 @@ public class Article{
                 }
             }
             reader.close();
+            fileStream.close();
+            file.close();
         } catch (IOException e) {
             //输出错误信息
             ErrorMessages.openFileError(pathname);
@@ -77,6 +80,20 @@ public class Article{
             if (reader != null) {
                 try {
                     reader.close();
+                } catch (IOException e2){
+                }
+            }
+            //回收fileStream
+            if (fileStream != null) {
+                try {
+                    fileStream.close();
+                } catch (IOException e2){
+                }
+            }
+            //回收file
+            if (file != null) {
+                try {
+                    file.close();
                 } catch (IOException e2){
                 }
             }
