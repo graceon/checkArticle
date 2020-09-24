@@ -2,6 +2,7 @@
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Stack;
 
 import article.CommandParse;
@@ -28,12 +29,13 @@ public class test {
             if (fileName.equals(origin)) {
                 continue;
             }
-            String[] mainArg = {
+            String[] args = {
                     basePath + origin,
                     basePath + fileName,
                     resPath
             };
-            CommandParse.main(mainArg);
+            System.out.println("测试参数："+ Arrays.toString(args));
+            CommandParse.main(args);
             System.out.println();
         }
 
@@ -46,10 +48,11 @@ public class test {
     @Test
     public void testWrongArgs(){
         String[] args={
-                "wrong_origin",
-                "wrong_traget",
-                "wrong_res",
+                "wrong_origin_path",
+                "wrong_target_path",
+                "wrong_res_path",
         };
+        System.out.println("测试参数："+ Arrays.toString(args));
         CommandParse.main(args);
     }
     /**
@@ -60,6 +63,7 @@ public class test {
         String[] args={
                 "wrong_args_length",
         };
+        System.out.println("测试参数："+ Arrays.toString(args));
         CommandParse.main(args);
     }
 
